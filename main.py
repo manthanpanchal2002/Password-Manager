@@ -14,26 +14,52 @@ print("----------------------------------------------------")
 
 
 def newAccount():
-    mail = input("Enter your email address : ")
-    print("----------------------------------------------------")
-    fullname = input("Enter your full name : ")
-    print("----------------------------------------------------")
+    # mail = input("Enter your email address : ")
+    # print("----------------------------------------------------")
+    # fullname = input("Enter your full name : ")
+    # print("----------------------------------------------------")
 
-# -----------------------------------------------------  Storing user data -----------------------------------------------------
-    user_info = {
-        "User information": [{
-            "Email": mail,
-            "FullName": fullname
-        }]
+    # -----------------------------------------------------  Storing user data -----------------------------------------------------
+    # user_info = {
+    #     fullname: {
+    #         "Email": mail,
+    #         "FullName": fullname
+    #     }
 
-    }
+    # }
 
-    with open('user_data.json', 'r') as user_data_file:
-        data = json.load(user_data_file)
-        data.update(user_info)
+    # with open('user_data.json', 'r') as user_data_file:
+    #     data = json.load(user_data_file)
+    #     data.update(user_info)
 
+    # with open('user_data.json', 'w') as user_data_file:
+    #     json.dump(data, user_data_file, indent=4)
+
+    try:
+        with open('user_data.json', 'r') as user_data_file:
+            data = json.load(user_data_file)
+            mail = input("Enter your email address : ")
+            print("----------------------------------------------------")
+            fullname = input("Enter your full name : ")
+            print("----------------------------------------------------")
+
+            newData = {
+                "User" + str(len(data)+1):
+                {"Email": mail, "Name": fullname}
+            }
+            data.update(newData)
+    except:
+        mail = input("Enter your email address : ")
+        print("----------------------------------------------------")
+        fullname = input("Enter your full name : ")
+        print("----------------------------------------------------")
+        newData = {
+            'User1': {"Email": mail, "Name": fullname}
+        }
+        data = newData
     with open('user_data.json', 'w') as user_data_file:
         json.dump(data, user_data_file, indent=4)
+
 
     print(f"Mr/ Mrs. {fullname} your account is successfully created")
 
@@ -49,22 +75,31 @@ def mailChecker():
 # -----------------------------------------------------  Verification of email from json file -----------------------------------------------------
     with open('user_data.json') as user_data_file:
         data = json.load(user_data_file)
-        stored_email = data["User information"]["Email"]
-        stored_name = data["User information"]["FullName"]
+        for i in range(len(data)):
+            num = 1
+            str_1 = "User"
+            str_2 = num
+            user_confirm = f"{str_1}{str_2}"
+            if data[user_confirm] == data[user_confirm]["Email"]:
+                stored_email = data[user_confirm]["Email"]
+                stored_name = data[user_confirm]["Name"]
+                print(f"Welcome back, Mr/Mrs. {stored_name}")
 
-    if recevier != stored_email:
-        print("User not found! Create new account")
-        print("----------------------------------------------------")
-        newAccount()
-    else:
-        print(f"Welcome back, Mr/Mrs. {stored_name}")
+            elif recevier != data[user_confirm]["Email"]:
+                print("User not found! Create new account")
+                print("----------------------------------------------------")
+                newAccount()
+                # else:
+                #     print(f"Welcome back, Mr/Mrs. {stored_name}")
+
+            num += 1
 
         num = random.randint(9999, 99999)
         # print(num)
 
         my_email = "pm921322@gmail.com"
         password = "cnniqouugstvbrbh"
-        with smtplib.SMTP("smtp.gmail.com") as connection:  # it will close automatically
+        with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=my_email, password=password)
             connection.sendmail(
@@ -84,9 +119,9 @@ def mailChecker():
 
 # ------------------------------------------------------ accessing system ------------------------2------------------------------
             PasswordManager.main()
-            print("----------------------------------------------------")
-            print("Press 0 to get back to Main Menu")
-            MainMenu = input()
+            # print("----------------------------------------------------")
+            # print("Press 0 to get back to Main Menu")
+            # input()
 
         else:
             print("----------------------------------------------------")
