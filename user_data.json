@@ -1,8 +1,14 @@
 {
-    "User information": [
-        {
-            "Email": "s",
-            "FullName": "s"
-        }
-    ]
+    "User1": {
+        "Email": "a",
+        "Name": "a"
+    },
+    "User2": {
+        "Email": "pm921322@gmail.com",
+        "Name": "manthan"
+    },
+    "User3": {
+        "Email": "manthanppanchal21@gnu.ac.in",
+        "Name": "ICTManthan"
+    }
 }
